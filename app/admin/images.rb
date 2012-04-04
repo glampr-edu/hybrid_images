@@ -17,7 +17,7 @@ ActiveAdmin.register Image do
   action_item :only => [:show] do
     link_to "Crop image", crop_image_path(resource)
   end
-  action_item :except => [:index, :blend] do
+  action_item :except => [:index, :blend, :new] do
     link_to "Delete", image_path(resource), :method => :delete, :confirm => "Are u sure?"
   end
   
