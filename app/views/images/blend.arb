@@ -1,0 +1,17 @@
+panel "Hybrid image" do
+  div :style => "margin-bottom:20px" do
+    span do
+      "Density"
+    end
+    div :id => "slider" do
+    end
+    span do
+      "Size"
+    end
+    div :id => "size-slider" do
+    end
+  end
+  div :class => "align_center" do
+    image_tag @hybrid_image_url || Image.first.attachment.url, :id => "blend_image"
+  end
+end

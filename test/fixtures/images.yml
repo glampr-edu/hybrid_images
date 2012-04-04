@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  attachment: MyString
+  status: MyString
+  crop_x: 1
+  crop_y: 1
+  crop_w: 1
+  crop_h: 1
+
+two:
+  attachment: MyString
+  status: MyString
+  crop_x: 1
+  crop_y: 1
+  crop_w: 1
+  crop_h: 1

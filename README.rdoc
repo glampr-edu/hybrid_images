@@ -1,0 +1,3 @@
+== Welcome to Hybrid images
+
+You can use this website to upload images and then create hybrid images by combining the images you have already uploaded.

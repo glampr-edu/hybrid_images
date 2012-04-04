@@ -1,0 +1,18 @@
+<div class="panel">
+  <h3>Select crop area</h3>
+  <div class="panel_contents">
+    <%= semantic_form_for resource do |f| %>
+      <div class="align_center">
+        <%= image_tag(resource.attachment.url, :id => "cropbox", :width => "800", :data => {:ratio => f.object.display_ratio(800)}) %>
+      </div>
+      <div style="display:none">
+        <%= f.input :crop_x, :as => :hidden %>
+        <%= f.input :crop_y, :as => :hidden %>
+        <%= f.input :crop_w, :as => :hidden %>
+        <%= f.input :crop_h, :as => :hidden %>
+      </div>
+      <%= f.buttons %>
+    <% end %>
+  </div
+</div>
+
