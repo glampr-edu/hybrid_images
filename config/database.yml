@@ -39,4 +39,4 @@ production:
   pool: 5
   username: devuser
   password: devpass
-  socket: /tmp/mysql.sock
+  host: 127.0.0.1
