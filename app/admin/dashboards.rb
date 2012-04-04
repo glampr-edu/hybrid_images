@@ -1,6 +1,6 @@
 ActiveAdmin::Dashboards.build do
 
-  section "Hybrid images" do
+  section "Hybrid images -- MEDIALAB -- G. Lamprianidis -- (C) NTUA 2012" do
     Dir.glob("public/hybrid/*.jpg").each do |file|
       span do
         image_tag(file.to_s.scan(/(\/hybrid\/.*$)/).first.first) rescue nil
