@@ -1,12 +1,13 @@
 ActiveAdmin::Dashboards.build do
 
-  section "Hybrid images -- MEDIALAB -- G. Lamprianidis -- (C) NTUA 2012" do
+  section "Hybrid images" do
     Dir.glob("public/hybrid/*.jpg").each do |file|
       span do
         image_tag(file.to_s.scan(/(\/hybrid\/.*$)/).first.first) rescue nil
       end
     end
   end
+
   # Define your dashboard sections here. Each block will be
   # rendered on the dashboard in the context of the view. So just
   # return the content which you would like to display.
@@ -49,3 +50,4 @@ ActiveAdmin::Dashboards.build do
   # section "Membership Summary", :if => Proc.new { current_admin_user.account.memberships.any? }
 
 end
+

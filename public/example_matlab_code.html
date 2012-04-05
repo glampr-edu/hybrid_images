@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  
+  <style type="text/css" media="screen">
+    .reserved {
+      color: #00127E;
+    }
+    .builtin {
+      color: #C36921;
+    }
+    .comment {
+      color: #00690B;
+    }
+  </style>
+  
+  <a href="/">Back to application</a>
+  
+  <pre>
+<strong class="reserved">function</strong> M = mask( dimension, radius, low_or_high )
+  M = zeros(dimension);
+  I = 1:dimension;
+  x = I-dimension/2;
+  y = dimension/2-I;
+  [X,Y] = meshgrid(x,y);
+  <strong class="reserved">if</strong> strcmp(low_or_high, 'high') == 1
+      A = (X.^2 + Y.^2 >= radius^2);
+  <strong class="reserved">else</strong>
+      A = (X.^2 + Y.^2 <= radius^2);
+  <strong class="reserved">end</strong>
+  M(A) = 1;
+<strong class="reserved">end</strong>
+  </pre>
+  
+  <hr/>
+  
+  <pre>
+  
+  <strong class="comment">%================ l o w ================</strong>
+    
+  monroe_or = <strong class="builtin">imread</strong>('path to first image that will be blurred');
+  <strong class="builtin">figure</strong>, <strong class="builtin">imshow</strong>(monroe_or);
+  monroe = double(monroe_or);
+
+  monroe_fft = <strong class="builtin">fftshift</strong>(<strong class="builtin">fft2</strong>(monroe));
+  monroe_fft_abs = <strong class="builtin">abs</strong>(monroe_fft);
+  monroe_fft_ang = <strong class="builtin">angle</strong>(monroe_fft);
+  monroe_fft_abs_log = <strong class="builtin">log</strong>(monroe_fft_abs);
+  monroe_log_min = <strong class="builtin">min</strong>(<strong class="builtin">min</strong>(monroe_fft_abs_log));
+  monroe_log_max = <strong class="builtin">max</strong>(<strong class="builtin">max</strong>(monroe_fft_abs_log));
+
+  <strong class="builtin">figure</strong>, <strong class="builtin">imshow</strong>(monroe_fft_abs_log, [monroe_log_min, monroe_log_max]);
+  <strong class="builtin">figure</strong>, <strong class="builtin">imshow</strong>(monroe_fft_ang, [-pi, pi]);
+
+  low_filter_mask = mask(400, 25, 'low'); <strong class="comment">% create a 400x400 filter with radius 25</strong>
+  low_filter_freq = monroe_fft_abs.*low_filter_mask;
+  low_filter_freq_log = monroe_fft_abs_log.*low_filter_mask;
+
+  <strong class="builtin">figure</strong>, <strong class="builtin">imshow</strong>(low_filter_mask);
+
+  monroe_filter = monroe_fft.*low_filter_mask;
+  monroe_filter_log = monroe_fft_abs_log.*low_filter_mask;
+  <strong class="builtin">figure</strong>, <strong class="builtin">imshow</strong>(low_filter_freq_log, [monroe_log_min, monroe_log_max]);
+
+  monroe_ifft = <strong class="builtin"><strong class="builtin">fftshift</strong></strong>(<strong class="builtin">fftshift</strong>(monroe_filter));
+  monroe_image = <strong class="builtin">uint8</strong>(<strong class="builtin">abs</strong>(monroe_ifft));
+  <strong class="builtin">figure</strong>, <strong class="builtin">imshow</strong>(monroe_image);
+
+  <strong class="comment">%================ h i g h ================</strong>
+
+  einstein_or = <strong class="builtin">imread</strong>('path to second image that will be sharpened');
+  <strong class="builtin">figure</strong>, <strong class="builtin">imshow</strong>(einstein_or);
+  einstein = double(einstein_or);
+
+  einstein_fft = <strong class="builtin">fftshift</strong>(<strong class="builtin">fft2</strong>(einstein));
+  einstein_fft_abs = <strong class="builtin">abs</strong>(einstein_fft);
+  einstein_fft_ang = <strong class="builtin">angle</strong>(einstein_fft);
+  einstein_fft_abs_log = <strong class="builtin">log</strong>(einstein_fft_abs);
+  einstein_log_min = <strong class="builtin">min</strong>(<strong class="builtin">min</strong>(einstein_fft_abs_log));
+  einstein_log_max = <strong class="builtin">max</strong>(<strong class="builtin">max</strong>(einstein_fft_abs_log));
+
+  <strong class="builtin">figure</strong>, <strong class="builtin">imshow</strong>(einstein_fft_abs_log, [einstein_log_min, einstein_log_max]);
+  <strong class="builtin">figure</strong>, <strong class="builtin">imshow</strong>(einstein_fft_ang, [-pi, pi]);
+
+  low_filter_mask = mask(400, 25, 'high'); <strong class="comment">% create a 400x400 filter with radius 25</strong>
+  low_filter_freq = einstein_fft_abs.*low_filter_mask;
+  low_filter_freq_log = einstein_fft_abs_log.*low_filter_mask;
+
+  <strong class="builtin">figure</strong>, <strong class="builtin">imshow</strong>(low_filter_mask);
+
+  einstein_filter = einstein_fft.*low_filter_mask;
+  einstein_filter_log = einstein_fft_abs_log.*low_filter_mask;
+  <strong class="builtin">figure</strong>, <strong class="builtin">imshow</strong>(low_filter_freq_log, [einstein_log_min, einstein_log_max]);
+
+  einstein_ifft = <strong class="builtin"><strong class="builtin">fftshift</strong></strong>(<strong class="builtin">fftshift</strong>(einstein_filter));
+  einstein_image = <strong class="builtin">uint8</strong>(<strong class="builtin">abs</strong>(einstein_ifft)) + einstein_or;
+  <strong class="builtin">figure</strong>, <strong class="builtin">imshow</strong>(einstein_image);
+
+  <strong class="builtin">figure</strong>, <strong class="builtin">imshow</strong>((monroe_image/2)+(einstein_image/2));
+  </pre>
+  
+  <a href="/">Back to application</a>
+  
+</html>

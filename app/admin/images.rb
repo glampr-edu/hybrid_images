@@ -83,4 +83,8 @@ ActiveAdmin.register Image do
     system            "composite #{sharp} #{blurred} -dissolve #{blend_density},100 #{output_file_path}"
   end
   
+  sidebar "Example Matlab code", :only => [:index] do
+    link_to "Code", "/example_matlab_code.html"
+  end
+  
 end

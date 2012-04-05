@@ -128,3 +128,20 @@ ActiveAdmin.setup do |config|
   # To load a javascript file:
   #   config.register_javascript 'my_javascript.js'
 end
+
+
+class ActiveAdmin::Views::Pages::Base < Arbre::HTML::Document
+
+  private
+
+  # Renders the content for the footer
+  def build_footer
+    div :id => "footer" do
+      para ("Copyright &copy; #{Date.today.year.to_s} George Lamprianidis. " + 
+           "Created by George Lamprianidis as a demo for #{link_to("NTUA Medialab's", "http://medialab.ntua.gr")} course "+
+           "Communication Technology. Powered by #{link_to('Active Admin', 'http://www.activeadmin.info')} #{ActiveAdmin::VERSION}. " +
+           "Uses software from ImageMagick.org").html_safe
+    end
+  end
+
+end
