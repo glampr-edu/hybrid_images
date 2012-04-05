@@ -84,8 +84,10 @@ ActiveAdmin.register Image do
   end
   
   sidebar "Useful links", :only => [:index] do
-    span { link_to "Example Matlab Code", "/example_matlab_code.html" }
-    span { link_to "Powerpoint presentation", "/hybrid.pptx" }
+    ul do
+      li { link_to "Example Matlab Code", "/example_matlab_code.html" }
+      li { link_to "Powerpoint presentation", "/hybrid.pptx" }      
+    end
   end
   
 end
